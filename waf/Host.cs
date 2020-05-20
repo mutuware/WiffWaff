@@ -5,20 +5,27 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace waf
+namespace WAF
 {
     public static class Host
     {
         private static HttpListener _listener;
-        private static Dictionary<string, MethodInfo> _routes;
+        private static Assembly _appAssembly;
+        private static Dictionary<string, Type> _routes;
 
-        public static async Task Run(HostOptions hostOptions)
+        public static async Task Run()
         {
             _listener = new HttpListener();
             _listener.Prefixes.Add("http://localhost:8888/");
-
-            _routes = BuildRoutes(hostOptions.AppAssembly);
             Console.WriteLine($"Listening at {_listener.Prefixes.First()}");
+
+            _appAssembly = Assembly.GetEntryAssembly();
+            _routes = BuildRoutes(_appAssembly);
+            foreach(var route in _routes)
+            {
+                Console.WriteLine($"Route {route.Key} => {route.Value.Name}");
+            }
+
             _listener.Start();
 
             while (true)
@@ -29,40 +36,30 @@ namespace waf
             }
         }
 
-        private static Dictionary<string, MethodInfo> BuildRoutes(Assembly appAssembly)
+        private static Dictionary<string, Type> BuildRoutes(Assembly appAssembly)
         {
-            var attrs = appAssembly.GetTypes()
-                .SelectMany(x => x.GetMethods())
-                .Select(x => new { Attr = x.GetCustomAttribute<RouteAttribute>(false), MI = x })
-                .Where(x => x.Attr != null)
-                .ToList();
-
-            var dict = new Dictionary<string, MethodInfo>();
-            foreach (var attr in attrs)
-            {
-                dict.Add(attr.Attr.Url, attr.MI);
-            }
-
-            return dict;
-            //return new Dictionary<string, Func<string>>
-            //{
-            //    {"/index", () => "hello world" },
-            //    {"/about", () => "welcome to about" },
-            //};
+            return appAssembly.GetTypes()
+                .Where(x => x.Namespace.Contains(".Pages"))
+                .ToDictionary(k => "/" + k.Name.ToLower());
         }
 
         private static void Process(HttpListenerContext context)
         {
             try
             {
-                var url = context.Request.Url.AbsolutePath;
+                var url = context.Request.Url.AbsolutePath.ToLower();
 
-                if (!_routes.TryGetValue(url, out MethodInfo funcResponse))
+                if (!_routes.TryGetValue(url, out Type type))
                 {
                     throw new KeyNotFoundException("Invalid route!");
                 }
 
-                var routeResponse = (string)funcResponse.Invoke(null, null); // need instance for non-static methods
+                var httpVerb = context.Request.HttpMethod; // e.g. GET, POST
+
+                // instantiate matched type transiently
+                var instance = Activator.CreateInstance(type);
+                MethodInfo method = type.GetMethod(httpVerb, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
+                var routeResponse = (string)method.Invoke(instance, null);
 
                 var outerHtml = "<HTML><BODY>{{content}}</BODY></HTML>";
                 var html = outerHtml.Replace("{{content}}", routeResponse);
@@ -74,7 +71,7 @@ namespace waf
                 output.Write(buffer, 0, buffer.Length);
                 output.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 context.Response.StatusCode = 500;

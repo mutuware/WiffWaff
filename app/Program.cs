@@ -1,18 +1,10 @@
 ﻿using System.Threading.Tasks;
-using waf;
+using WAF;
 
 namespace app
 {
     class Program
     {
-        static async Task Main(string[] args)
-        {
-            await Host.Run(
-                new HostOptions
-                {
-                    AppAssembly = typeof(Program).Assembly
-                }
-            );
-        }
+        static async Task Main() => await Host.Run();
     }
 }
