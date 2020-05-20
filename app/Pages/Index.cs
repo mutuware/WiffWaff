@@ -2,9 +2,6 @@
 {
     public class Index
     {
-        public string Get()
-        {
-            return "Hello World!";
-        }
+        public string Get() => "Hello World!";
     }
 }

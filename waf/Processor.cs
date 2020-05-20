@@ -30,7 +30,19 @@ namespace WiffWaff
             // instantiate matched type transiently and execute http verb as method. e.g. Index.Get()
             var instance = Activator.CreateInstance(type);
             MethodInfo method = type.GetMethod(httpVerb, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-            var routeResponse = (string)method.Invoke(instance, null);
+            if (method == null)
+                throw new Exception($"Cannot find method on {type} that matches HTTP verb {httpVerb}");
+
+            string routeResponse = "";
+            if (method.ReturnType == typeof(string))
+            {
+                routeResponse = (string)method.Invoke(instance, null);
+            }
+            else
+            {
+                // do something else
+                routeResponse = method.Invoke(instance, null).ToString();
+            }
 
             // masterpage
             var outerHtml = "<HTML><BODY>{{content}}</BODY></HTML>";

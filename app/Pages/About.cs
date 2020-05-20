@@ -2,7 +2,7 @@
 {
     public class About
     {
-        public string Get()
+        public object Get()
         {
             return "About page";
         }
