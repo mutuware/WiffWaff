@@ -5,7 +5,7 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace WAF
+namespace WiffWaff
 {
     public static class Host
     {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WAF", "waf\WAF.csproj", "{5D361F8E-F1C5-4C14-BC4D-92B809250504}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WiffWaff", "waf\WiffWaff.csproj", "{5D361F8E-F1C5-4C14-BC4D-92B809250504}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "app\App.csproj", "{25506BF7-3CAD-4306-82B0-D1A2F7B79704}"
 EndProject
