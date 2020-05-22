@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace WiffWaff
@@ -13,6 +15,18 @@ namespace WiffWaff
             httpListenerResponse.ContentLength64 = buffer.Length;
             await httpListenerResponse.OutputStream.WriteAsync(buffer, 0, buffer.Length);
             httpListenerResponse.OutputStream.Close();
+        }
+
+        public static Dictionary<string,object> GetPropertyNamesAndValues(this object obj)
+        {
+            var dict = new Dictionary<string, object>();
+
+            foreach (PropertyInfo pi in obj.GetType().GetProperties())
+            {
+                dict[pi.Name] = pi.GetValue(obj, null);
+            }
+
+            return dict;
         }
     }
 }

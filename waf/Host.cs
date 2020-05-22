@@ -7,7 +7,7 @@ namespace WiffWaff
     public static class Host
     {
         private static HttpListener _listener = new HttpListener();
-        private static Processor _processor = new Processor(new Router());
+        private static Processor _processor = new Processor(new Router(), new Renderer(), new ClientApp());
         private const string BASEURL = "http://localhost:8888/";
 
         public static async Task Run()

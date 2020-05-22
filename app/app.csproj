@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,6 +6,17 @@
     <AssemblyName>App</AssemblyName>
     <RootNamespace>App</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Static\style.css" />
+    <None Remove="style.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Static\style.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\waf\WiffWaff.csproj" />

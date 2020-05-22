@@ -1,10 +1,12 @@
-﻿namespace App.Pages
+﻿using WiffWaff.Pages;
+
+namespace App.Pages
 {
     public class About
     {
-        public object Get()
+        public Page Get()
         {
-            return "About page";
+            return new WebPage { Text = "Welcome to the WiffWaff App" };
         }
     }
 }

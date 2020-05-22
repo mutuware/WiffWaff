@@ -1,9 +1,12 @@
-﻿using System;
+﻿using WiffWaff.Pages;
 
 namespace App.Pages.Products
 {
     public class Index
     {
-        public string Get() => "Products";
+        public WebPage Get() => new WebPage
+        {
+            Text = "This is the product page"
+        };
     }
 }
