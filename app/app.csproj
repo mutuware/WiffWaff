@@ -8,11 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Static\favicon.ico" />
     <None Remove="Static\style.css" />
     <None Remove="style.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Static\favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Static\style.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

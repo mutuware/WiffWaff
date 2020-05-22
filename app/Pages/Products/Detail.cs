@@ -1,5 +1,4 @@
 ﻿using App.Models;
-using System;
 
 namespace App.Pages.Products
 {
@@ -14,7 +13,7 @@ namespace App.Pages.Products
             InStock = true
         };
 
-        public string Post() => "Post has been delivered!";
+        public string Post(Product body) => $"Post has been delivered!:{body}";
 
     }
 }

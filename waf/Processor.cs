@@ -25,6 +25,8 @@ namespace WiffWaff
         {
             var url = context.Request.Url.AbsolutePath;
             var httpMethod = context.Request.HttpMethod;
+            var body = await context.Request.InputStream.GetBodyContentAsStringAsync();
+
             Console.WriteLine($"{DateTime.Now} {url} {httpMethod}");
 
             if (await StaticFile(context, url))
@@ -34,7 +36,7 @@ namespace WiffWaff
             var type = _router.GetRoute(context.Request.Url.AbsolutePath);
 
             // get app response
-            Page page = _clientApp.InvokeApp(type, httpMethod);
+            Page page = _clientApp.InvokeApp(type, httpMethod, body);
 
             // render page as appropriate
             var html = _renderer.Do(page, type);

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace WiffWaff
@@ -17,7 +19,7 @@ namespace WiffWaff
             httpListenerResponse.OutputStream.Close();
         }
 
-        public static Dictionary<string,object> GetPropertyNamesAndValues(this object obj)
+        public static Dictionary<string, object> GetPropertyNamesAndValues(this object obj)
         {
             var dict = new Dictionary<string, object>();
 
@@ -28,5 +30,17 @@ namespace WiffWaff
 
             return dict;
         }
-    }
+
+		public async static Task<string> GetBodyContentAsStringAsync(this Stream stream)
+        {
+            string content = string.Empty;
+
+            using (var readStream = new StreamReader(stream, Encoding.UTF8))
+            {
+                content = await readStream.ReadToEndAsync();
+            }
+
+            return content;
+        }
+	}
 }

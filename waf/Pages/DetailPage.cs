@@ -15,9 +15,9 @@ namespace WiffWaff.Pages
             {
                 var inputType = GetInputType(field.Value);
 
-                sb.Append($"<p><label>{field.Key}</lable><input type=\"{inputType}\" value=\"{field.Value}\"/></p>");
+                sb.Append($"<p><label>{field.Key}</label><input type=\"{inputType}\" name=\"{field.Key}\" value=\"{field.Value}\"/></p>");
             }
-            sb.Append("<button>Submit</button>");
+            sb.Append("<input type=\"submit\" value=\"Submit\"/>");
             sb.Append("</form>");
 
 
