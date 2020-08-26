@@ -1,6 +1,6 @@
 # WiffWaff
 
-An overly opinated web framework.
+An overly opinated proof-of-concept web framework.  
 
 Turns this class
 
@@ -21,5 +21,9 @@ Turns this class
 
     }
 
-into this page:
+into this page:  
+
 <img src="https://raw.githubusercontent.com/mutuware/WiffWaff/master/docs/Product-Detail.png">
+
+
+Framework provides the HTML, instead of the app.
