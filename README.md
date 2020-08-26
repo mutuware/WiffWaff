@@ -23,4 +23,4 @@ Turns this class
 
 into this page:
 
-[[https://raw.githubusercontent.com/mutuware/WiffWaff/master/docs/Product-Detail.png]]
+[[https://raw.githubusercontent.com/mutuware/WiffWaff/master/docs/Product-Detail.png|alt=details]]
