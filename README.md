@@ -27,3 +27,4 @@ into this page:
 
 
 Framework provides the HTML, instead of the app.
+Initially named as Web Application Framework (WAF) but turned into WiffWaff!
