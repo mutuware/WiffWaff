@@ -1,5 +1,7 @@
 # WiffWaff
 
+An overly opinated web framework.
+
 Turns this class
 
     public class Detail
@@ -21,4 +23,4 @@ Turns this class
 
 into this page:
 
-[https://raw.githubusercontent.com/mutuware/WiffWaff/master/docs/Product-Detail.png]
+[[https://raw.githubusercontent.com/mutuware/WiffWaff/master/docs/Product-Detail.png]]
