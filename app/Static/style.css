@@ -48,3 +48,8 @@ input[type=submit] {
     background-color: #f2f2f2;
     padding: 20px;
 }
+
+.navbar > ul > li{
+    display: inline-block;
+    margin: 10px;
+}

@@ -11,7 +11,7 @@ namespace WiffWaff
     {
         public static async Task WriteStringAsync(this HttpListenerResponse httpListenerResponse, string contents, int statusCode = 200)
         {
-            var buffer = System.Text.Encoding.UTF8.GetBytes(contents);
+            var buffer = Encoding.UTF8.GetBytes(contents);
             // Get a response stream and write the response to it.
             httpListenerResponse.StatusCode = statusCode;
             httpListenerResponse.ContentLength64 = buffer.Length;

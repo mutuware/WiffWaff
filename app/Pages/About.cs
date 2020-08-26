@@ -6,7 +6,7 @@ namespace App.Pages
     {
         public Page Get()
         {
-            return new WebPage { Text = "Welcome to the WiffWaff App" };
+            return new WebPage { Header = "About Page", Text = "Welcome to the WiffWaff App" };
         }
     }
 }

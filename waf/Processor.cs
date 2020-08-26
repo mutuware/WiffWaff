@@ -39,7 +39,7 @@ namespace WiffWaff
             Page page = _clientApp.InvokeApp(type, httpMethod, body);
 
             // render page as appropriate
-            var html = _renderer.Do(page, type);
+            var html = _renderer.Do(page, type, _router.Routes);
 
             await context.Response.WriteStringAsync(html);
         }

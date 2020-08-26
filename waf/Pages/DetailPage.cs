@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Web;
 
 namespace WiffWaff.Pages
 {
@@ -14,8 +15,9 @@ namespace WiffWaff.Pages
             foreach (var field in Fields)
             {
                 var inputType = GetInputType(field.Value);
+                var stringValue = field.Value is string ? HttpUtility.UrlDecode(field.Value.ToString()) : field.Value.ToString();
 
-                sb.Append($"<p><label>{field.Key}</label><input type=\"{inputType}\" name=\"{field.Key}\" value=\"{field.Value}\"/></p>");
+                sb.Append($"<p><label>{field.Key}</label><input type=\"{inputType}\" name=\"{field.Key}\" value=\"{stringValue}\"/></p>");
             }
             sb.Append("<input type=\"submit\" value=\"Submit\"/>");
             sb.Append("</form>");

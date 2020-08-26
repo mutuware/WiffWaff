@@ -43,11 +43,17 @@ namespace WiffWaff
             {
                 var obj = method.Invoke(instance, null);
                 var values = obj.GetPropertyNamesAndValues();
+
                 var page = new DetailPage
                 {
                     Fields = values
                 };
                 return page;
+            }
+            else if(method.ReturnType== typeof(void))
+            {
+                method.Invoke(instance, paramsArray); // Does POST then calls equivalent GET method
+                return InvokeApp(type, "GET", "");
             }
             else
             {

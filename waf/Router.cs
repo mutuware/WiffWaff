@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -8,16 +9,18 @@ namespace WiffWaff
 {
     public class Router
     {
-        private Dictionary<string, Type> _routes;
+        public ReadOnlyDictionary<string, Type> Routes;
         private const string PAGES = ".Pages";
 
         public Router()
         {
-            _routes = Assembly.GetEntryAssembly().GetTypes()
+            var routes = Assembly.GetEntryAssembly().GetTypes()
                 .Where(x => x.Namespace.Contains(PAGES))
                 .ToDictionary(k => ToUrl(k.FullName));
 
-            foreach (var route in _routes)
+            Routes = new ReadOnlyDictionary<string, Type>(routes);
+
+            foreach (var route in Routes)
             {
                 Console.WriteLine($"Route {route.Key} => {route.Value.Name}");
             }
@@ -25,7 +28,7 @@ namespace WiffWaff
 
         public Type GetRoute(string url)
         {
-            if (!_routes.TryGetValue(url.ToLower(), out Type type))
+            if (!Routes.TryGetValue(url.ToLower(), out Type type))
             {
                 throw new KeyNotFoundException("Invalid route!");
             }
