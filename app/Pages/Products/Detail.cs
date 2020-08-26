@@ -17,5 +17,5 @@ namespace App.Pages.Products
 
         public void Post(Product body) => _product = body;
 
-}
+    }
 }
